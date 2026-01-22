@@ -1,26 +1,34 @@
-from django.contrib import admin
-from django.urls import path, include
-from django.contrib.auth import views as auth_views
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
 
-    # 🔐 Login / Logout using built-in Django auth views
-    path('login/', auth_views.LoginView.as_view(
-        template_name='shop/login.html'  # Login template path
-    ), name='login'),
+    # 🔐 Auth
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('register/', views.register, name='register'),
 
-    path('logout/', auth_views.LogoutView.as_view(
-        next_page='login'  # Logout गरेपछि login page मा redirect
-    ), name='logout'),
+    # 🌸 Pages
+    path('flowers/', views.flowers, name='flowers'),
+    path('shopplants/', views.shopplants, name='shopplants'),
+    path('weddings/', views.weddings, name='weddings'),
+    path('workshop/', views.workshop, name='workshop'),
 
-    # 🏠 Shop app URLs
-    path('', include('shop.urls')),  # shop app को urls.py include गरियो
+    # 📦 Orders & Reports
+    path('orders/', views.orders, name='orders'),
+    path('reports/', views.reports, name='reports'),
+
+    # 🛒 Cart
+    path('cart/', views.cart_view, name='cart'),
+    path('add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('remove/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
+
+    # ⚡ Buy Now
+    path('buy/<int:flower_id>/', views.buy_now, name='buy_now'),
+
+    # 💳 Checkout & Payment
+    path('checkout/', views.payment, name='checkout'),   # ✅ ADD THIS LINE
+    path('payment/', views.payment, name='payment'),
+    path('payment/success/', views.payment_success, name='payment_success'),
 ]
-
-# ✅ Media files serve in development
-from django.conf import settings
-from django.conf.urls.static import static
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
