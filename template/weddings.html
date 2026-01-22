@@ -1,0 +1,33 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}Weddings{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Wedding Flower Services</h2>
+    <p>Make your wedding more beautiful with our floral decorations.</p>
+
+    <div class="cards">
+        <div class="card">
+            <img src="{% static 'images/bouquet.jpg' %}" class="flower-img">
+            <h3>Bouquets</h3>
+            <p>Bridal and bridesmaid bouquets.</p>
+            <a href="#" class="btn small">Details</a>
+        </div>
+
+        <div class="card">
+            <img src="{% static 'images/stage.jpg' %}" class="flower-img">
+            <h3>Stage Decoration</h3>
+            <p>Elegant wedding stage flower designs.</p>
+            <a href="#" class="btn small">Details</a>
+        </div>
+
+        <div class="card">
+            <img src="{% static 'images/car.jpg' %}" class="flower-img">
+            <h3>Car Decoration</h3>
+            <p>Beautiful floral decoration for wedding cars.</p>
+            <a href="#" class="btn small">Details</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

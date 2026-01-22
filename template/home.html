@@ -1,0 +1,36 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero" style="background-image: url('{% static "shop/images/banner.jpg" %}')">
+    <div class="hero-box">
+        <h1>Welcome to Flower Shop</h1>
+        <p>Fresh Flowers for Every Occasion</p>
+        <a href="{% url 'flowers' %}" class="btn">Shop Now</a>
+    </div>
+</section>
+
+<!-- CARDS -->
+<section class="cards">
+    <div class="card">
+        <h3>🌹 Flowers</h3>
+        <p>View all available flowers</p>
+        <a href="{% url 'flowers' %}" class="btn small">View Flowers</a>
+    </div>
+
+    <div class="card">
+        <h3>🛒 Orders</h3>
+        <p>Create and manage orders</p>
+        <a href="{% url 'orders' %}" class="btn small">Manage Orders</a>
+    </div>
+
+    <div class="card">
+        <h3>📊 Reports</h3>
+        <p>Sales and stock summary</p>
+        <a href="{% url 'reports' %}" class="btn small">View Reports</a>
+    </div>
+</section>
+
+{% endblock %}

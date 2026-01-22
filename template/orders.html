@@ -1,0 +1,110 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2 style="text-align:center; margin-top:30px;">📦 Place a New Order</h2>
+
+<!-- ================= Manual Order Form ================= -->
+<form method="post" style="width:90%; max-width:500px; margin:20px auto; padding:20px; border:1px solid #ddd; border-radius:8px; background:#f9f9f9;">
+    {% csrf_token %}
+
+    <label>Customer Name</label>
+    <input type="text" name="name" placeholder="Enter your name" required style="width:100%; padding:8px; margin:5px 0;">
+
+    <label>Phone Number</label>
+    <input type="text" name="phone" placeholder="Enter phone number" required style="width:100%; padding:8px; margin:5px 0;">
+
+    <label>Order Type</label>
+    <div style="margin:10px 0;">
+        <input type="radio" name="order_type" value="Pickup" onclick="toggleAddress(false)" required> Pickup
+        &nbsp;&nbsp;
+        <input type="radio" name="order_type" value="Delivery" onclick="toggleAddress(true)" required> Delivery
+    </div>
+
+    <div id="address-box" style="display:none;">
+        <label>Delivery Address</label>
+        <input type="text" name="address" id="address" placeholder="Enter delivery address" style="width:100%; padding:8px; margin:5px 0;">
+    </div>
+
+    <label>Select Flower</label>
+    <select name="flower" required style="width:100%; padding:8px; margin:5px 0;">
+        <option value="">-- Choose Flower --</option>
+        {% for flower in flowers %}
+            <option value="{{ flower.id }}">{{ flower.name }} - ¥{{ flower.price }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Quantity</label>
+    <input type="number" name="quantity" min="1" value="1" required style="width:100%; padding:8px; margin:5px 0;">
+
+    <button type="submit" class="btn" style="margin-top:10px; width:100%;">Place Order</button>
+</form>
+
+<script>
+function toggleAddress(show) {
+    const box = document.getElementById("address-box");
+    const address = document.getElementById("address");
+
+    if (show) {
+        box.style.display = "block";
+        address.required = true;
+    } else {
+        box.style.display = "none";
+        address.required = false;
+        address.value = "";
+    }
+}
+</script>
+
+<!-- ================= Orders Lists ================= -->
+<h2 style="text-align:center; margin-top:40px;">📦 Your Orders</h2>
+
+<!-- Paid Orders -->
+<h3 style="text-align:center; margin-top:20px;">✅ Paid Orders</h3>
+{% if paid_orders %}
+<table style="width:90%; margin:auto; border-collapse: collapse;">
+    <tr style="background:#f2f2f2;">
+        <th style="padding:8px; border:1px solid #ddd;">Product</th>
+        <th style="padding:8px; border:1px solid #ddd;">Quantity</th>
+        <th style="padding:8px; border:1px solid #ddd;">Price</th>
+        <th style="padding:8px; border:1px solid #ddd;">Address</th>
+    </tr>
+    {% for order in paid_orders %}
+    <tr>
+        <td style="padding:8px; border:1px solid #ddd;">{{ order.flower.name }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">{{ order.quantity }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">¥ {{ order.flower.price|floatformat:2 }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">{{ order.address }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p style="text-align:center;">No paid orders yet.</p>
+{% endif %}
+
+<!-- Manual Orders -->
+<h3 style="text-align:center; margin-top:30px;">✏️ Manual Orders</h3>
+{% if manual_orders %}
+<table style="width:90%; margin:auto; border-collapse: collapse;">
+    <tr style="background:#f2f2f2;">
+        <th style="padding:8px; border:1px solid #ddd;">Product</th>
+        <th style="padding:8px; border:1px solid #ddd;">Quantity</th>
+        <th style="padding:8px; border:1px solid #ddd;">Price</th>
+        <th style="padding:8px; border:1px solid #ddd;">Address</th>
+        <th style="padding:8px; border:1px solid #ddd;">Order Type</th>
+    </tr>
+    {% for order in manual_orders %}
+    <tr>
+        <td style="padding:8px; border:1px solid #ddd;">{{ order.flower.name }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">{{ order.quantity }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">¥ {{ order.flower.price|floatformat:2 }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">{{ order.address }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">{{ order.order_type }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p style="text-align:center;">No manual orders yet.</p>
+{% endif %}
+
+{% endblock %}

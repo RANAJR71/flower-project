@@ -1,0 +1,33 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}Shop Plants{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Shop Plants</h2>
+    <p>Indoor and Outdoor plants available for your home and garden.</p>
+
+    <div class="cards">
+        <div class="card">
+            <img src="{% static 'images/indoor.jpg' %}" class="flower-img">
+            <h3>Indoor Plants</h3>
+            <p>Perfect for room decoration and fresh air.</p>
+            <a href="#" class="btn small">View</a>
+        </div>
+
+        <div class="card">
+            <img src="{% static 'images/outdoor.jpg' %}" class="flower-img">
+            <h3>Outdoor Plants</h3>
+            <p>Strong plants for garden and balcony.</p>
+            <a href="#" class="btn small">View</a>
+        </div>
+
+        <div class="card">
+            <img src="{% static 'images/succulent.jpg' %}" class="flower-img">
+            <h3>Succulents</h3>
+            <p>Small and easy-care decorative plants.</p>
+            <a href="#" class="btn small">View</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

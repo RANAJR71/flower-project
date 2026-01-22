@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flower Shop</title>
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">🌸Flower Shop🌸</div>
+
+    <ul class="menu">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'flowers' %}">Flowers</a></li>
+        <li><a href="{% url 'shopplants' %}">Shop Plants</a></li>
+        <li><a href="{% url 'weddings' %}">Weddings</a></li>
+        <li><a href="{% url 'workshop' %}">Workshop</a></li>
+        <li><a href="{% url 'orders' %}">Orders</a></li>
+        <li><a href="{% url 'payment' %}">Payment</a></li>
+    </ul>
+
+    <div class="auth-buttons">
+        {% if user.is_authenticated %}
+            <!-- ✅ LOGOUT must be POST -->
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn login-btn">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn login-btn">Login</a>
+            <a href="{% url 'register' %}" class="btn login-btn">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2 style="text-align:center; margin-top:30px;">✅ Payment Successful</h2>
+
+<p style="text-align:center;">Thank you, {{ user.username }}! Your order has been placed successfully.</p>
+
+<h3 style="margin-top:20px;">Order Details:</h3>
+
+<table style="width:80%; margin:auto; border-collapse: collapse;">
+    <tr style="background:#f2f2f2;">
+        <th style="padding:8px; border:1px solid #ddd;">Product</th>
+        <th style="padding:8px; border:1px solid #ddd;">Quantity</th>
+        <th style="padding:8px; border:1px solid #ddd;">Price</th>
+        <th style="padding:8px; border:1px solid #ddd;">Address</th>
+        <th style="padding:8px; border:1px solid #ddd;">Email</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td style="padding:8px; border:1px solid #ddd;">{{ order.flower.name }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">{{ order.quantity }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">¥ {{ order.flower.price|floatformat:2 }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">{{ order.address }}</td>
+        <td style="padding:8px; border:1px solid #ddd;">{{ user.email }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3 style="text-align:center; margin-top:20px;">Total: ¥ {{ total|floatformat:2 }}</h3>
+
+<a href="{% url 'home' %}" class="btn" style="display:block; width:200px; margin:20px auto; text-align:center;">🏠 Back to Home</a>
+{% endblock %}

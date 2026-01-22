@@ -1,0 +1,38 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2 style="text-align:center; margin-top:30px;">🌸 Our Flowers 🌸</h2>
+
+<div class="cards">
+    {% for flower in flowers %}
+    <div class="card">
+
+        {% if flower.image %}
+            <img src="{{ flower.image.url }}" class="flower-img">
+        {% else %}
+            <img src="{% static 'shop/images/no-image.png' %}" class="flower-img">
+        {% endif %}
+
+        <h3>{{ flower.name }}</h3>
+        <p>{{ flower.description|truncatechars:60 }}</p>
+        <strong>¥ {{ flower.price }}</strong>
+
+        <div class="card-btns">
+            <a href="{% url 'add_to_cart' flower.id %}" class="btn small">
+                🛒 Add to Cart
+            </a>
+
+            <!-- Buy Now button points to buy_now view -->
+            <a href="{% url 'buy_now' flower.id %}" class="btn small buy">
+                ⚡ Buy Now
+            </a>
+        </div>
+
+
+    </div>
+    {% empty %}
+        <p style="text-align:center;">No flowers available</p>
+    {% endfor %}
+</div>
+{% endblock %}

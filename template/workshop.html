@@ -1,0 +1,33 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}Workshop{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Flower Workshops</h2>
+    <p>Join our workshops and learn about flowers and plants.</p>
+
+    <div class="cards">
+        <div class="card">
+            <img src="{% static 'images/arrangement.jpg' %}" class="flower-img">
+            <h3>Flower Arrangement</h3>
+            <p>Learn how to make beautiful bouquets.</p>
+            <a href="#" class="btn small">Join</a>
+        </div>
+
+        <div class="card">
+            <img src="{% static 'images/plantcare.jpg' %}" class="flower-img">
+            <h3>Plant Care</h3>
+            <p>Learn how to care for indoor plants.</p>
+            <a href="#" class="btn small">Join</a>
+        </div>
+
+        <div class="card">
+            <img src="{% static 'images/seasonal.jpg' %}" class="flower-img">
+            <h3>Seasonal Workshop</h3>
+            <p>Special classes during festival seasons.</p>
+            <a href="#" class="btn small">Join</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="cart-box">
+    <h2>🛒 Your Cart</h2>
+
+    {% if cart_items %}
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <div>
+                <strong>{{ item.flower.name }}</strong><br>
+                <small>Price: ¥{{ item.flower.price }}</small>
+            </div>
+            <div>
+                Qty: {{ item.quantity }} <br>
+                <strong>¥{{ item.total_price }}</strong>
+            </div>
+        </div>
+        {% endfor %}
+
+        <hr>
+        <h3>Total: ¥{{ total }}</h3>
+
+        <!-- FIXED HERE -->
+        <a href="{% url 'checkout' %}" class="btn">Checkout</a>
+
+    {% else %}
+        <p>Your cart is empty 🌸</p>
+        <a href="{% url 'flowers' %}" class="btn">Go Shopping</a>
+    {% endif %}
+</div>
+
+{% endblock %}

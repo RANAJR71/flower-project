@@ -1,0 +1,101 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+
+<div class="cart-box">
+    <h2>🛒 Order Summary</h2>
+
+    {% if cart_items %}
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <div>
+                <strong>{{ item.flower.name }}</strong><br>
+                <small>Price: ¥{{ item.flower.price }}</small>
+            </div>
+            <div>
+                Qty: {{ item.quantity }} <br>
+                <strong>¥{{ item.total_price }}</strong>
+            </div>
+        </div>
+        {% endfor %}
+
+        <hr>
+        <h3>Total: ¥{{ total }}</h3>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+
+
+<div class="form-box">
+    <h2>💳 Payment</h2>
+    <p>Please choose your payment method to complete the order.</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Payment Method</label>
+        <div style="margin:12px 0;">
+            <input type="radio" name="payment_method" value="Cash" required>
+            Cash on Delivery
+            <br>
+            <input type="radio" name="payment_method" value="Card" required>
+            Credit / Debit Card
+            <br>
+            <input type="radio" name="payment_method" value="Online" required>
+            Online Payment
+        </div>
+
+        <!-- Card Details -->
+        <div id="card-box" style="display:none;">
+            <label>Card Number</label>
+            <input type="text" name="card_number" placeholder="1234 5678 9012 3456">
+
+            <label>Expiry Date</label>
+            <input type="text" name="expiry" placeholder="MM/YY">
+
+            <label>CVV</label>
+            <input type="password" name="cvv" placeholder="***">
+        </div>
+
+        <!-- Online Payment -->
+        <div id="online-box" style="display:none;">
+            <label>Online Wallet</label>
+            <select name="wallet">
+                <option>PayPay</option>
+                <option>Line Pay</option>
+                <option>Google Pay</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn">Confirm Payment</button>
+    </form>
+</div>
+
+
+<script>
+const radios = document.getElementsByName("payment_method");
+const cardBox = document.getElementById("card-box");
+const onlineBox = document.getElementById("online-box");
+
+for (let i = 0; i < radios.length; i++) {
+    radios[i].addEventListener("change", function () {
+        if (this.value === "Card") {
+            cardBox.style.display = "block";
+            onlineBox.style.display = "none";
+        }
+        else if (this.value === "Online") {
+            onlineBox.style.display = "block";
+            cardBox.style.display = "none";
+        }
+        else {
+            cardBox.style.display = "none";
+            onlineBox.style.display = "none";
+        }
+    });
+}
+</script>
+
+{% endblock %}

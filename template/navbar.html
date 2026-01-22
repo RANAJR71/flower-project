@@ -1,0 +1,26 @@
+<nav class="navbar">
+    <div class="logo">🌸 Flower Shop</div>
+
+    <ul class="menu">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'flowers' %}">Flowers</a></li>
+        <li><a href="{% url 'shopplants' %}">Shop Plants</a></li>
+        <li><a href="{% url 'weddings' %}">Weddings</a></li>
+        <li><a href="{% url 'workshop' %}">Workshop</a></li>
+        <li><a href="{% url 'orders' %}">Orders</a></li>
+        <li><a href="{% url 'payment' %}">Payment</a></li>
+    </ul>
+
+    <div>
+        {% if user.is_authenticated %}
+            <!-- ✅ Logout hamesha POST -->
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="login-btn">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" class="login-btn">Login</a>
+            <a href="{% url 'register' %}" class="login-btn">Register</a>
+        {% endif %}
+    </div>
+</nav>
